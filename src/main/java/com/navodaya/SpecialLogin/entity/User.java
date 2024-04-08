@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class User
 {
-    @Id  //Primary Key for DB Table
+    @Id //Primary Key for DB Table
     @GeneratedValue(strategy = GenerationType.IDENTITY) //primary key value to be auto generated
     private Long id;
 
@@ -25,6 +26,12 @@ public class User
 
     @Column(nullable=false, unique=true)
     private String email;
+
+//    private String designation;
+
+//    private Date date_of_joining_samiti;
+//
+//    private Date date_of_joining_present;
 
     @Column(nullable=false)
     private String password;
