@@ -44,9 +44,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.headers().cacheControl().disable().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(  "/auth/generateToken", "/auth/getRolesOfUser").permitAll()
+                .requestMatchers(  "/auth/generateToken", "/auth/getRolesOfUser", "").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/auth/users/**", "auth/roles/**", "auth/roles").hasRole("ADMIN")
+                .authorizeHttpRequests().requestMatchers("/auth/users/**", "auth/roles/**", "auth/roles", "/auth/users/add").hasRole("ADMIN")
                 .and()
                 .authorizeHttpRequests().requestMatchers("/auth/admin/**","auth/user/**", "menus/**").authenticated()
                 .and()

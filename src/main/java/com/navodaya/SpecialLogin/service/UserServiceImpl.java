@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(AddUserRequestDTO userRequest, User currentUser) {
+    public User saveUser(AddUserRequestDTO userRequest) {
         List<Role> roles = userRequest.getRoles(); // Assuming this returns a list of role names
         List<Role> roleObjects = new ArrayList<>();
         for (Role role : roles) {
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        User user = User.build(null, userRequest.getName(), userRequest.getEmail(), userRequest.getPassword(), false, roleObjects, LocalDateTime.now(),LocalDateTime.now(), currentUser, currentUser);
+        User user = User.build(null, userRequest.getName(), userRequest.getEmail(), userRequest.getPassword(), false, roleObjects, LocalDateTime.now(),LocalDateTime.now(), null,null);
         return userRepository.save(user);
     }
 

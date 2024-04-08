@@ -1,9 +1,10 @@
-package com.navodaya.SpecialLogin.entity;
+package com.navodaya.SpecialLogin.entity.SalaryDetails;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -30,27 +31,29 @@ public class SalaryDetails {
 
     private int dearness_allowance_percent;
 
-    private int HRA_percent;
+    private int hra_percent;
 
-    private int Transportation_Allowance;
+    private int transportation_allowance;
 
-    private boolean is_Residential_Allowance_Applicable;
+    private boolean is_residential_allowance_applicable;
 
-    private int Residential_Allowance_Percent;
+    private int residential_allowance_percent;
 
-    private boolean is_NPS_Applicable;
+    private boolean is_nps_applicable;
 
-    private boolean is_NPS_Arrear_Applicable;
+    private boolean is_nps_arrear_applicable;
 
-    private int NPS_Arrear_Amount_Samiti_Contribution;
+    private int nps_arrear_amount_samiti_contribution;
 
-    private int NPS_Arrear_Own_Contibution;
+    private int nps_arrear_own_contibution;
 
-    private int HM_AHM_Allowance;
+    private int hm_ahm_allowance;
 
-    private List<OtherAllowances> otherAllowances;
+    @JoinColumn(name = "allowance_id")
+    @OneToMany
+    private List<OtherAllowances> other_allowances = new ArrayList<>();
 
-    private int grossSalary;
+    private int gross_salary;
 
     private int cpf_regular_subscription;
 
@@ -74,6 +77,5 @@ public class SalaryDetails {
 
     private int audit_recovery;
 
-    private List<> otherAllowances;
-
+    private List<OtherDeductions> other_deductions = new ArrayList<>();
 }

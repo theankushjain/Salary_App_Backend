@@ -64,9 +64,9 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping("/users/add")
-    public ResponseEntity<User> addNewUser(HttpServletRequest request, @RequestBody @Valid AddUserRequestDTO addUserInfo) throws TokenNotFoundException {
-        User currentUser =  extractUserFromRequest.extractCurrentUser(request);
-        return new ResponseEntity<>(userService.saveUser(addUserInfo, currentUser), CREATED);
+    public ResponseEntity<User> addNewUser(HttpServletRequest request, @RequestBody @Valid AddUserRequestDTO addUserInfo) {
+//        User currentUser =  extractUserFromRequest.extractCurrentUser(request);
+        return new ResponseEntity<>(userService.saveUser(addUserInfo), CREATED);
     }
 
     @CrossOrigin
