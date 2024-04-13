@@ -1,5 +1,10 @@
 package com.navodaya.SpecialLogin.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.navodaya.SpecialLogin.dto.SalaryResponseDTO;
+import com.navodaya.SpecialLogin.entity.SalaryDetails.SalaryDetails;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,6 +41,10 @@ public class User
     @Column(nullable=false)
     private String password;
 
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<SalaryDetails> salaryDetails = new ArrayList<>();
+
     @Column(name = "is_deleted")
     private boolean deleted = false;
 
@@ -47,9 +56,9 @@ public class User
     private List<Role> roles = new ArrayList<>();
 
     // Logging fields
-    @Column(nullable=false, unique=true, name="created_at")
+    @Column(nullable=false, name="created_at")
     private LocalDateTime createdAt;
-    @Column(nullable=false, unique=true, name="updated_at")
+    @Column(nullable=false, name="updated_at")
     private LocalDateTime updatedAt;
 
     @JoinColumn(name = "createdby_id")

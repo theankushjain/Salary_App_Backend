@@ -1,6 +1,7 @@
 package com.navodaya.SpecialLogin.repository;
 
 import com.navodaya.SpecialLogin.entity.Role;
+import com.navodaya.SpecialLogin.entity.SalaryDetails.SalaryDetails;
 import com.navodaya.SpecialLogin.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,4 +27,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query("SELECT u.roles FROM User u WHERE u.id = :userId")
     List<Role> findRolesByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT u.salaryDetails FROM User u WHERE u.id = :userId")
+    List<SalaryDetails> findSalaryDetailsByUserId(@Param("userId") Long userId);
 }
+

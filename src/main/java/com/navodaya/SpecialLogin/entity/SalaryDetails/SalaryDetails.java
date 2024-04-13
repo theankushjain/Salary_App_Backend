@@ -1,9 +1,15 @@
 package com.navodaya.SpecialLogin.entity.SalaryDetails;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.navodaya.SpecialLogin.entity.User;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,68 +20,53 @@ import java.util.List;
 @AllArgsConstructor(staticName = "build")
 @NoArgsConstructor
 @Table(name="salary_details")
+//@JsonIgnoreProperties(value = {"user"}, allowSetters = true)
 public class SalaryDetails {
     @Id
-    @GeneratedValue
-    private long Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
 
-    private long pay_level;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private long payLevel;
 
     private int year;
 
     private int month;
 
-    private int no_of_days_present;
+    private int noOfDaysPresent;
 
-    private int basic_pay;
+    private int basicPay;
 
-    private int dearness_allowance_percent;
+    @OneToMany(mappedBy = "salaryDetails",fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<OtherAllowances> otherAllowances = new ArrayList<>();
 
-    private int hra_percent;
+    private int totalAmountAllowances;
 
-    private int transportation_allowance;
+    @OneToMany(mappedBy = "salaryDetails", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<OtherDeductions> otherDeductions = new ArrayList<>();
 
-    private boolean is_residential_allowance_applicable;
+    int totalAmountDeductions;
+    int grossSalary;
+    int netSalary;
 
-    private int residential_allowance_percent;
+    @Column(name = "is_deleted")
+    private boolean deleted= false;
 
-    private boolean is_nps_applicable;
+    // Logging fields
+    @Column(nullable=false)
+    private LocalDateTime createdAt;
+    @Column(nullable=false)
+    private LocalDateTime updatedAt;
 
-    private boolean is_nps_arrear_applicable;
+    @JoinColumn(name = "createdby_id")
+    @ManyToOne
+    private User createdBy;
 
-    private int nps_arrear_amount_samiti_contribution;
-
-    private int nps_arrear_own_contibution;
-
-    private int hm_ahm_allowance;
-
-    @JoinColumn(name = "allowance_id")
-    @OneToMany
-    private List<OtherAllowances> other_allowances = new ArrayList<>();
-
-    private int gross_salary;
-
-    private int cpf_regular_subscription;
-
-    private int cpf_arrear;
-
-    private int recovery_advance;
-
-    private int gslis_amount;
-
-    private int ngtis_contibution;
-
-    private int recovery_of_vehicle_advance;
-
-    private int income_tax;
-
-    private int water_electricity;
-
-    private int licence_fees;
-
-    private int professional_tax;
-
-    private int audit_recovery;
-
-    private List<OtherDeductions> other_deductions = new ArrayList<>();
+    @JoinColumn(name = "updatedby_id")
+    @ManyToOne
+    private User updatedBy;
 }

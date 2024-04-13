@@ -28,7 +28,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     public Menu createMenu(MenuRequestDTO menuRequest, User currentUser){
-        Menu parentMenu = menuRequest.getParentMenu(); // Assuming this returns a list of role names
+        Menu parentMenu = menuRequest.getParentMenu();
         Menu foundMenu = new Menu();
         if (parentMenu!=null){
             foundMenu = menuRepository.findByLabel(parentMenu.getLabel());

@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        User user = User.build(null, userRequest.getName(), userRequest.getEmail(), userRequest.getPassword(), false, roleObjects, LocalDateTime.now(),LocalDateTime.now(), null,null);
+        User user = User.build(null, userRequest.getName(), userRequest.getEmail(), userRequest.getPassword(),null,false, roleObjects, LocalDateTime.now(),LocalDateTime.now(), null,null);
         return userRepository.save(user);
     }
 
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
                     System.out.println("not found");
                 }
             }
-            User user = User.build(existingUser.getId(),existingUser.getName(), existingUser.getEmail(), existingUser.getPassword(), false, roleObjects, existingUser.getCreatedAt(), LocalDateTime.now(),existingUser.getCreatedBy(), currentUser);
+            User user = User.build(existingUser.getId(),existingUser.getName(), existingUser.getEmail(), existingUser.getPassword(),existingUser.getSalaryDetails(), false, roleObjects, existingUser.getCreatedAt(), LocalDateTime.now(),existingUser.getCreatedBy(), currentUser);
 
             // Save the updated user
             return userRepository.save(user);
@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> foundUser = userRepository.findById(userId);
         if (foundUser.isPresent()){
             User deletedUser=new User();
-            deletedUser = User.build(foundUser.get().getId(), foundUser.get().getName(), foundUser.get().getEmail(),foundUser.get().getPassword(),true,foundUser.get().getRoles(),foundUser.get().getCreatedAt(), LocalDateTime.now(),foundUser.get().getCreatedBy(),user);
+            deletedUser = User.build(foundUser.get().getId(), foundUser.get().getName(), foundUser.get().getEmail(),foundUser.get().getPassword(),foundUser.get().getSalaryDetails(),true,foundUser.get().getRoles(),foundUser.get().getCreatedAt(), LocalDateTime.now(),foundUser.get().getCreatedBy(),user);
             return userRepository.save(deletedUser);
         }else throw new UserNotFoundException("User not found with user Id: "+ userId);
     }
