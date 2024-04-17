@@ -52,9 +52,17 @@ public class MenuServiceImpl implements MenuService {
 
     public Menu updateMenu(MenuRequestDTO menuRequest, Long menuId, User currentUser) throws MenuNotFoundException{
         Optional<Menu> existingMenuOptional = menuRepository.findById(menuId);
+        System.out.println(menuRequest);
+        Menu parentMenu = menuRequest.getParentMenu();
+        Menu foundMenu = new Menu();
+        if (parentMenu!=null){
+            foundMenu = menuRepository.findByLabel(parentMenu.getLabel());
+        }else {
+            foundMenu=null;
+        }
         if (existingMenuOptional.isPresent()) {
             Menu existingMenu = existingMenuOptional.get();
-            existingMenu = Menu.build(existingMenu.getId(), menuRequest.getLabel(),menuRequest.getIcon(),menuRequest.getParentMenu(),menuRequest.getOrdering(),menuRequest.getRouteLink(),false,existingMenu.getCreatedAt(),LocalDateTime.now(),existingMenu.getCreatedBy(),currentUser);
+            existingMenu = Menu.build(existingMenu.getId(), menuRequest.getLabel(),menuRequest.getIcon(),foundMenu,menuRequest.getOrdering(),menuRequest.getRouteLink(),false,existingMenu.getCreatedAt(),LocalDateTime.now(),existingMenu.getCreatedBy(),currentUser);
             return menuRepository.save(existingMenu);
         }
         else {

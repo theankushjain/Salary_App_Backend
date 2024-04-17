@@ -1,5 +1,6 @@
 package com.navodaya.SpecialLogin.repository;
 
+import com.navodaya.SpecialLogin.entity.Location;
 import com.navodaya.SpecialLogin.entity.Role;
 import com.navodaya.SpecialLogin.entity.SalaryDetails.SalaryDetails;
 import com.navodaya.SpecialLogin.entity.User;
@@ -15,6 +16,14 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
     User findByEmail(String email);
+
+    @Query("SELECT u " +
+            "FROM User u " +
+            "WHERE u.deleted = false " +
+            "AND (u.currentPostingLocation = :currentLocation " +
+            "     OR u.currentPostingLocation.parent = :currentLocation " +
+            "     OR u.currentPostingLocation.parent.parent = :currentLocation)")
+    List<User> findAllByLocationOrChildLocationsAndGrandchildLocations(@Param("currentLocation") Location currentLocation);
 
     @Query("SELECT u FROM User u WHERE u.deleted = false")
     List<User> findAllNotDeleted();

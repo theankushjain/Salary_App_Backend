@@ -1,9 +1,6 @@
 package com.navodaya.SpecialLogin.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.navodaya.SpecialLogin.dto.SalaryResponseDTO;
 import com.navodaya.SpecialLogin.entity.SalaryDetails.SalaryDetails;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -32,14 +28,20 @@ public class User
     @Column(nullable=false, unique=true)
     private String email;
 
+//  private Long shaladarpanId;
+
 //    private String designation;
 
-//    private Date date_of_joining_samiti;
-//
-//    private Date date_of_joining_present;
+//    private Date joinedSamitiOn;
+
 
     @Column(nullable=false)
     private String password;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location currentPostingLocation;
 
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)

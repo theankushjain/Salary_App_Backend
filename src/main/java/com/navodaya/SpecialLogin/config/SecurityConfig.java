@@ -46,7 +46,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(  "/auth/generateToken", "/auth/getRolesOfUser", "").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/auth/users/**", "auth/roles/**", "auth/roles", "/auth/users/add", "salary/add").hasRole("ADMIN")
+                .authorizeHttpRequests().requestMatchers("/auth/users/**", "auth/roles/**", "auth/roles", "/auth/users/add", "salary/add", "location/**").hasRole("ADMIN")
                 .and()
                 .authorizeHttpRequests().requestMatchers("/auth/admin/**","auth/user/**", "menus/**","salary/{userId}").authenticated()
                 .and()

@@ -23,6 +23,8 @@ public class UpdateUserRequestDTO {
     @Email(message = "Invalid Email Format")
     private String email;
 
+    private String currentPostingLocation;
+
     @NotBlank(message = "At least 1 Role is required")
     private List<Role> roles;
 }

@@ -2,6 +2,7 @@ package com.navodaya.SpecialLogin.service;
 
 import com.navodaya.SpecialLogin.dto.AddUserRequestDTO;
 import com.navodaya.SpecialLogin.dto.UpdateUserRequestDTO;
+import com.navodaya.SpecialLogin.dto.UserResponseDTO;
 import com.navodaya.SpecialLogin.entity.Role;
 import com.navodaya.SpecialLogin.entity.User;
 import com.navodaya.SpecialLogin.exception.UserNotFoundException;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    User saveUser(AddUserRequestDTO userRequest);
+    User saveUser(AddUserRequestDTO userRequest, User currentUser);
 
     User updateUser(UpdateUserRequestDTO user, Long userId, User currentUser) throws UserNotFoundException;
 
@@ -21,7 +22,9 @@ public interface UserService {
 
     Optional<User> findUserById(Long id);
 
-    List<User> findAllUsers();
+    List<UserResponseDTO> findAllUsers();
+
+    public List<UserResponseDTO> getUsersForCurrentUser(User currentUser);
 
     List<Role> findAllRoles();
 

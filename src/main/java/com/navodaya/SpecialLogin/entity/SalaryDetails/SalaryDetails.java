@@ -62,10 +62,12 @@ public class SalaryDetails {
     @Column(nullable=false)
     private LocalDateTime updatedAt;
 
+    @JsonIgnore
     @JoinColumn(name = "createdby_id")
     @ManyToOne
     private User createdBy;
 
+    @JsonIgnore
     @JoinColumn(name = "updatedby_id")
     @ManyToOne
     private User updatedBy;

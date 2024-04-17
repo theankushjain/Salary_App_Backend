@@ -1,4 +1,5 @@
 package com.navodaya.SpecialLogin.dto;
+import com.navodaya.SpecialLogin.entity.Location;
 import com.navodaya.SpecialLogin.entity.Role;
 import com.navodaya.SpecialLogin.repository.RoleRepository;
 import jakarta.validation.constraints.Email;
@@ -28,5 +29,7 @@ public class AddUserRequestDTO {
 
     @NotNull(message = "At least 1 Role is required")
     private List<Role> roles;
+
+    private String currentPostingLocation;
 
 }

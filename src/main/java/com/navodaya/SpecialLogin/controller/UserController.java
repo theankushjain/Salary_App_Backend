@@ -2,6 +2,7 @@ package com.navodaya.SpecialLogin.controller;
 
 import com.navodaya.SpecialLogin.dto.AddUserRequestDTO;
 import com.navodaya.SpecialLogin.dto.UpdateUserRequestDTO;
+import com.navodaya.SpecialLogin.dto.UserResponseDTO;
 import com.navodaya.SpecialLogin.entity.AuthRequest;
 import com.navodaya.SpecialLogin.entity.JwtResponse;
 import com.navodaya.SpecialLogin.entity.Role;
@@ -58,15 +59,16 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getUser(){
-        return ResponseEntity.ok(userService.findAllUsers());
+    public ResponseEntity<List<UserResponseDTO>> getUser(HttpServletRequest request) throws TokenNotFoundException{
+        User currentUser = extractUserFromRequest.extractCurrentUser(request);
+        return ResponseEntity.ok(userService.getUsersForCurrentUser(currentUser));
     }
 
     @CrossOrigin
     @PostMapping("/users/add")
-    public ResponseEntity<User> addNewUser(HttpServletRequest request, @RequestBody @Valid AddUserRequestDTO addUserInfo) {
-//        User currentUser =  extractUserFromRequest.extractCurrentUser(request);
-        return new ResponseEntity<>(userService.saveUser(addUserInfo), CREATED);
+    public ResponseEntity<User> addNewUser(HttpServletRequest request, @RequestBody @Valid AddUserRequestDTO addUserInfo) throws TokenNotFoundException {
+        User currentUser =  extractUserFromRequest.extractCurrentUser(request);
+        return new ResponseEntity<>(userService.saveUser(addUserInfo, currentUser), CREATED);
     }
 
     @CrossOrigin

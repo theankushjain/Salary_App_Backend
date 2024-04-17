@@ -1,13 +1,10 @@
 package com.navodaya.SpecialLogin.service;
 
 import com.navodaya.SpecialLogin.dto.SalaryRequestDTO;
-import com.navodaya.SpecialLogin.dto.SalaryResponseDTO;
-import com.navodaya.SpecialLogin.entity.Menu;
 import com.navodaya.SpecialLogin.entity.SalaryDetails.OtherAllowances;
 import com.navodaya.SpecialLogin.entity.SalaryDetails.OtherDeductions;
 import com.navodaya.SpecialLogin.entity.SalaryDetails.SalaryDetails;
 import com.navodaya.SpecialLogin.entity.User;
-import com.navodaya.SpecialLogin.repository.MenuRepository;
 import com.navodaya.SpecialLogin.repository.SalaryRepository.OtherAllowancesRepository;
 import com.navodaya.SpecialLogin.repository.SalaryRepository.OtherDeductionsRepository;
 import com.navodaya.SpecialLogin.repository.SalaryRepository.SalaryRepository;

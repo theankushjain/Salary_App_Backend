@@ -1,7 +1,6 @@
 package com.navodaya.SpecialLogin.controller;
 
 import com.navodaya.SpecialLogin.dto.SalaryRequestDTO;
-import com.navodaya.SpecialLogin.dto.SalaryResponseDTO;
 import com.navodaya.SpecialLogin.entity.SalaryDetails.SalaryDetails;
 import com.navodaya.SpecialLogin.entity.User;
 import com.navodaya.SpecialLogin.exception.TokenNotFoundException;

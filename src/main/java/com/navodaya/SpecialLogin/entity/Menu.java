@@ -24,6 +24,7 @@ public class Menu {
 
     private String icon;
 
+
     @JoinColumn(name = "parent_id")
     @ManyToOne
     private Menu parentMenu;
